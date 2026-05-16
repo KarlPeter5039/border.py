@@ -5,11 +5,9 @@ A lightweight photography utility for creating elegant Instagram-ready bordered 
 border.py batch-processes images from a folder, automatically detects orientation, applies configurable white borders, optionally sharpens resized images, and exports polished JPEGs optimized for Instagram posting.
 
 Designed especially for:
-- film photographers
-- scanned negatives
-- fine-art presentation
-- minimalist Instagram aesthetics
-- gallery-style framing
+- photographers who really want to add that white frame around their boring images to really make them *POP*
+- works best on 2x3 or 3x2 (portrait or landscape) images with a bottom edge width greater than 1440 pixels
+- output is gallery-style framing
 
 ---
 
@@ -22,7 +20,7 @@ For every portrait image, border.py automatically creates TWO outputs:
 ### 1. Full Portrait Mode
 - Preserves the full original 2:3 composition
 - Places the image on a 3:4 white canvas
-- Adds elegant whitespace above/below or around the image
+- Adds whitespace above/below or around the image
 - No cropping
 
 ### 2. Cropped Portrait Mode
@@ -127,6 +125,8 @@ Input:
 Output:
 - JPG
 
+If you are a PNG snob, you can go ahead and change the code for this.
+
 ---
 
 # Configuration
@@ -165,21 +165,15 @@ border.py automatically corrects EXIF orientation metadata using:
 ImageOps.exif_transpose()
 ```
 
-This ensures portrait images exported from phones, Lightroom, scanners, and cameras are handled correctly.
+This ensures portrait images exported from phones, Lightroom, scanners, and cameras are handled correctly. This was annoying when photos were scanned by a Noritsu and caused some issues with rotation.
 
 ---
 
 # Future Plans
 
-- GUI interface
-- drag-and-drop support
-- live preview
-- border presets
-- gallery-paper tones
-- watermark/signature support
-- Lightroom integration
-- export presets
-- adaptive canvas sizing
+- not much lol
+- add medium format support (645, 6x6, 6x7)
+- test more edge cases (xpan panoramas, 6x17, 6x19, etc.)
 
 ---
 
