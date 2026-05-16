@@ -1,5 +1,4 @@
 # border.py
-# border.py
 
 A lightweight photography utility for creating elegant Instagram-ready bordered images from portrait and landscape photographs.
 
