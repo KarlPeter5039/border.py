@@ -102,7 +102,7 @@ Place images into the `input/` folder.
 Run:
 
 ```bash
-python border_tool.py
+python border.py
 ```
 
 Processed images will appear in:
@@ -131,7 +131,7 @@ If you are a PNG snob, you can go ahead and change the code for this.
 
 # Configuration
 
-Inside `border_tool.py`:
+Inside `border.py`:
 
 ```python
 EXPORT_HEIGHT = 1800
