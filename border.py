@@ -161,27 +161,42 @@ def process_portrait_mode_2(img):
 
 def process_landscape(img):
     """
-    Preserve ANY landscape aspect ratio.
-    Add even white borders.
+    Preserve original aspect ratio for all
+    landscape and square images.
+
+    Add equal border in all directions.
     """
-
-    # Instagram-friendly portrait canvas
-    # Gives elegant bordered landscape presentation
-
-    canvas_w = 1440
-    canvas_h = 960
-
-    border = int(canvas_w * BORDER_PERCENT)
-
-    available_w = canvas_w - (1.5 * border)
-    available_h = canvas_h - (1.5 * border)
 
     img_copy = img.copy()
 
-    # Preserve aspect ratio automatically
-    img_copy.thumbnail((available_w, available_h), Image.LANCZOS)
+    # ----------------------------------------
+    # Resize image to target height first
+    # ----------------------------------------
+
+    scale = EXPORT_HEIGHT / img_copy.height
+
+    new_w = int(img_copy.width * scale)
+    new_h = EXPORT_HEIGHT
+
+    img_copy = img_copy.resize(
+        (new_w, new_h),
+        Image.LANCZOS
+    )
+
+    # ----------------------------------------
+    # Optional sharpening
+    # ----------------------------------------
 
     img_copy = apply_sharpening_landscape(img_copy)
+
+    # ----------------------------------------
+    # Add border equally on all sides
+    # ----------------------------------------
+
+    border = int(EXPORT_HEIGHT * BORDER_PERCENT)
+
+    canvas_w = new_w + (2 * border)
+    canvas_h = new_h + (2 * border)
 
     canvas = Image.new(
         "RGB",
@@ -189,13 +204,9 @@ def process_landscape(img):
         BACKGROUND_COLOR
     )
 
-    x = (canvas_w - img_copy.width) // 2
-    y = (canvas_h - img_copy.height) // 2
-
-    canvas.paste(img_copy, (x, y))
+    canvas.paste(img_copy, (border, border))
 
     return canvas
-
 
 # ============================================
 # MAIN LOOP
@@ -231,7 +242,7 @@ for filepath in Path(INPUT_DIR).iterdir():
 
     if portrait:
 
-        # ----- MODE 1 -----
+        # ----- MODE 1 -----  
         result_1 = process_portrait_mode_1(img)
 
         output_1 = (
